@@ -1,8 +1,3 @@
-// Retrive all the list of users from the database and disply them in a list
-// Use firebase to retrive the data from the database
-// Use the FlatList to display the data
-
-// Path: screens\Chats.js
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -27,7 +22,9 @@ const Chats = ({ navigation }) => {
                     data={users}
                     renderItem={({ item }) => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate('Chat', { name: item.name, uid: item.uid })}>
+                            <TouchableOpacity onPress={() => navigation.navigate('ChatsIn', {
+                                user: item
+                            })}>
                                 <View style={styles.chat}>
                                     <Image source={{ uri: item.photo }} style={styles.image} />
                                     <View style={styles.chatInfo}>
@@ -69,7 +66,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 50
-    }   
+    }
 })
 
 export default Chats

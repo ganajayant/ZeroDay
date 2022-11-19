@@ -2,19 +2,19 @@
 // theui should have text field and send button
 // the ui should have a list of messages
 
-// Path: screens\ChatPage.js
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Button, FlatList, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, withSafeAreaInsets } from 'react-native-safe-area-context';
 
-const ChatsIn = ({ navigation, route }) => {
+const ChatsIn = ({ route, navigation }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
+    console.log(messages);
     const user = auth().currentUser;
     useEffect(() => {
-        firestore().collection('chats').doc(route.params.uid).collection('messages').orderBy('createdAt', 'desc').onSnapshot((querySnapshot) => {
+        firestore().collection('chats').doc(route.params.user.email).collection('messages').orderBy('createdAt', 'desc').onSnapshot((querySnapshot) => {
             const messages = [];
             querySnapshot.forEach((doc) => {
                 messages.push(doc.data());
@@ -23,8 +23,8 @@ const ChatsIn = ({ navigation, route }) => {
         })
     }, [])
     const sendMessage = () => {
-        firestore().collection('chats').doc(route.params.uid).collection('messages').add({
-            uid: user.uid,
+        firestore().collection('chats').doc(route.params.user.email).collection('messages').add({
+            useremail: user.email,
             text: message,
             createdAt: firestore.FieldValue.serverTimestamp(),
         })
@@ -38,15 +38,16 @@ const ChatsIn = ({ navigation, route }) => {
                     renderItem={({ item }) => {
                         return (
                             <View style={styles.chat}>
-                                <Image source={{ uri: item.photo }} style={styles.image} />
+                                {console.log('text', item)}
+                                <Image source={{ uri: item?.userphoto }} style={styles.image} />
                                 <View style={styles.chatInfo}>
-                                    <Text style={styles.name}>{item.name}</Text>
+                                    {/* <Text style={styles.name}>{item.name}</Text> */}
                                     <Text style={styles.message}>{item.text}</Text>
                                 </View>
                             </View>
                         )
                     }}
-                    keyExtractor={item => item.uid}
+                    keyExtractor={item => item.useremail}
                 />
                 <View style={styles.inputContainer}>
                     <TextInput
@@ -56,9 +57,7 @@ const ChatsIn = ({ navigation, route }) => {
                         placeholder="Type message"
                         placeholderTextColor="grey"
                     />
-                    <TouchableOpacity onPress={sendMessage}>
-                        <Text style={styles.send}>Send</Text>
-                    </TouchableOpacity>
+                    <Button title="Send" onPress={sendMessage} />
                 </View>
             </SafeAreaView>
         </View>
@@ -71,6 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         borderBottomWidth: 1,
+        color: "white",
         borderBottomColor: 'grey'
     },
     chatInfo: {
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     },
     message: {
         fontSize: 16,
-        color: 'white'
+        color: 'black'
     },
     image: {
         height: 50,
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         margin: 10,
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         borderRadius: 25
     },
     input: {
