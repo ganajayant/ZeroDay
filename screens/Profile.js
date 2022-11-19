@@ -15,7 +15,8 @@ const onLogout = () => {
     auth().signOut();
 }
 
-const Profile = ({navigation}) => {
+
+const Profile = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView style={{ flex: 1, padding: 20 }}>

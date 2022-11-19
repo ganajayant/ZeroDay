@@ -4,6 +4,7 @@ import auth from '@react-native-firebase/auth';
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
 // Making a editable form using functional components and hooks with useState and useEffect 
 // Feature to update the user profile and actual values should be shown as place holders
@@ -19,10 +20,9 @@ import { useFocusEffect } from '@react-navigation/native';
 // 7. Bio
 
 
-const ViewEdit = () => {
+const ViewEdit = ({navigation}) => {
     const [state, setState] = useState({
         name: '',
-        email: '',
         institute: '',
         department: '',
         year: '',
@@ -31,9 +31,6 @@ const ViewEdit = () => {
     })
     const onChangeName = name => {
         setState({ ...state, name })
-    }
-    const onChangeEmail = email => {
-        setState({ ...state, email })
     }
     const onChangeInstitute = institute => {
         setState({ ...state, institute })
@@ -55,10 +52,22 @@ const ViewEdit = () => {
     //     auth().signOut();
     // }
     const onSave = () => {
-        // Save the changes to the database
+        console.log('user',auth().currentUser.uid);
+        firestore().collection('users').doc(auth().currentUser.uid).update({
+            name: state.name,
+            institute: state.institute,
+            department: state.department,
+            year: state.year,
+            job: state.job,
+            bio: state.bio
+        })
+        .then(() => {
+            console.log('User updated!');
+        }
+        )
     }
     const onCancel = () => {
-        // Cancel the changes and go back to the profile page
+        navigation.navigate('Profile')
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -74,14 +83,6 @@ const ViewEdit = () => {
                         placeholderTextColor={'grey'}
                         value={state.name}
                         onChangeText={onChangeName}
-                    />
-                    <Text style={{ fontSize: 20 }}>Email</Text>
-                    <TextInput
-                        style={styles.input}   
-                        placeholder="Email"
-                        placeholderTextColor={'grey'}
-                        value={state.email}
-                        onChangeText={onChangeEmail}
                     />
                     <Text style={{ fontSize: 20 }}>Institute</Text>
                     <TextInput
