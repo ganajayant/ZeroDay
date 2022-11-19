@@ -21,11 +21,9 @@ const onLogout = () => {
 const Profile = ({ navigation }) => {
     const [state, setState] = useState({})
     const [posts, setPosts] = useState([]);
-    console.log('profile', auth().currentUser.email);
     useEffect(() => {
         firestore().collection('users').where('email', '==', auth().currentUser.email).get().then((querySnapshot) => {
             querySnapshot.forEach((documentSnapshot) => {
-                console.log(documentSnapshot.data());
                 setState(documentSnapshot.data())
             });
         });
@@ -37,9 +35,8 @@ const Profile = ({ navigation }) => {
             setPosts(posts);
         })
     }, [])
-    console.log('posts', posts);
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor:"black" }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: "black" }}>
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.imageContainer}>
@@ -141,7 +138,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 20
     }
-    
+
 })
 
 export default Profile;

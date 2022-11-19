@@ -5,21 +5,8 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-nativ
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// Making a editable form using functional components and hooks with useState and useEffect 
-// Feature to update the user profile and actual values should be shown as place holders
-// Have a save and update button to save the changes
-// Have a logout button to logout the user
-// Features of the form are:
-// 1. Name
-// 2. Email
-// 3. Institute
-// 4. Department
-// 5. Year of passing
-// 6. Current job and company
-// 7. Bio
 
-
-const ViewEdit = ({navigation}) => {
+const ViewEdit = ({ navigation }) => {
     const [state, setState] = useState({
         name: '',
         institute: '',
@@ -61,7 +48,6 @@ const ViewEdit = ({navigation}) => {
     }
 
     const onSave = () => {
-        console.log('user',auth().currentUser.uid);
         firestore().collection('users').doc(auth().currentUser.uid).update({
             name: state.name,
             institute: state.institute,
@@ -70,23 +56,22 @@ const ViewEdit = ({navigation}) => {
             job: state.job,
             bio: state.bio
         })
-        .then(() => {
-            console.log('User updated!');
-            navigation.navigate('Profile');
-        }
-        )
+            .then(() => {
+                navigation.navigate('Profile');
+            }
+            )
     }
     const onCancel = () => {
         navigation.navigate('Profile')
     }
     return (
-        <SafeAreaView style={{ flex: 1 , backgroundColor:'black'}}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'black' }}>
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 30  ,color:"white" }}>Edit Profile</Text>
+                    <Text style={{ fontSize: 30, color: "white" }}>Edit Profile</Text>
                 </View>
                 <View style={{ flex: 1, padding: 20 }}>
-                    <Text style={{ fontSize: 20 , color:"white"}}>Name</Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>Name</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Name"
@@ -94,7 +79,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.name}
                         onChangeText={onChangeName}
                     />
-                    <Text style={{ fontSize: 20 ,color:"white" }}>Institute</Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>Institute</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Institute"
@@ -102,7 +87,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.institute}
                         onChangeText={onChangeInstitute}
                     />
-                    <Text style={{ fontSize: 20 ,color:"white"  }}>Department</Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>Department</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Department"
@@ -110,7 +95,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.department}
                         onChangeText={onChangeDepartment}
                     />
-                    <Text style={{ fontSize: 20 ,color:"white"  }}>Year of passing</Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>Year of passing</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Year of passing"
@@ -118,7 +103,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.year}
                         onChangeText={onChangeYear}
                     />
-                    <Text style={{ fontSize: 20 ,color:"white"  }}>Current job and company</Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>Current job and company</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Current job and company"
@@ -126,7 +111,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.job}
                         onChangeText={onChangeJob}
                     />
-                    <Text style={{ fontSize: 20 ,color:"white"  }}>Bio</Text>
+                    <Text style={{ fontSize: 20, color: "white" }}>Bio</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Bio"
@@ -135,12 +120,12 @@ const ViewEdit = ({navigation}) => {
                         onChangeText={onChangeBio}
                     />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <TouchableOpacity style={styles.button} onPress={onSave}>
-                        <Text style={{ color: 'black', fontSize: 20 }}>Save</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={onCancel}>
-                        <Text style={{ color: 'black', fontSize: 20 }}>Cancel</Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={onSave}>
+                            <Text style={{ color: 'black', fontSize: 20 }}>Save</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.button} onPress={onCancel}>
+                            <Text style={{ color: 'black', fontSize: 20 }}>Cancel</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </ScrollView>
@@ -156,7 +141,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderRadius: 10,
-        backgroundColor:"white"
+        backgroundColor: "white"
     },
     button: {
         alignItems: "center",
@@ -172,16 +157,3 @@ export default ViewEdit;
 
 
 
-// export default function Profile() {
-//     return(
-//         <SafeAreaView>
-//             <ScrollView>
-                
-//                 <TouchableOpacity onPress={() => {
-//                     auth().signOut();}} >
-//                     <Text >Logout</Text>
-//                 </TouchableOpacity>
-//             </ScrollView>
-//         </SafeAreaView>
-//     )
-// }

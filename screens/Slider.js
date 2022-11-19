@@ -59,21 +59,18 @@ export const Slider = ({ navigation }) => {
             pages={[
                 {
                     backgroundColor: 'black',
-                    // image: <Image source={require('../assets/onboarding-img1.png')} />,
                     title: 'Connect with Your ALUMNI',
                     subtitle: 'A New Way To Connect With The Alumni Of Your College',
                 },
                 {
                     backgroundColor: 'black',
-                    // image: <Image source={require('../assets/onboarding-img2.png')} />,
                     title: 'Share Your Favorites',
                     subtitle: 'Share Your Thoughts With Similar Kind of People',
                 },
                 {
                     backgroundColor: 'black',
-                    // image: <Image source={require('../assets/onboarding-img3.png')} />,
-                    title: 'Become The Star',
-                    subtitle: "Let The Spot Light Capture You",
+                    title: 'Gain Knowledge',
+                    subtitle: "Learn From The Experience Of Your Fellow Alumni's",
                 },
             ]}
         />

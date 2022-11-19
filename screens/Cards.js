@@ -34,8 +34,6 @@ const Card = (props) => {
     }
 
     useEffect(() => {
-        console.log(props);
-        // based on email return user
         firestore().collection('users').where('email', '==', props.post.useremail).get().then((querySnapshot) => {
             querySnapshot.forEach((doc) => {
                 setUser(doc.data());
@@ -43,7 +41,6 @@ const Card = (props) => {
         }
         )
     }, [])
-    console.log('post', props.post);
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>

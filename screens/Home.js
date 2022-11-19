@@ -28,7 +28,6 @@ export default function Home() {
                     <Search />
                     <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around" }}>
                         {posts.map((post, index) => {
-                            console.log(post);
                             return (
                                 <Card key={index} post={post} />
                             )

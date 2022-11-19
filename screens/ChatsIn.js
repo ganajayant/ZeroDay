@@ -1,7 +1,3 @@
-//  Build a chat ui between two users with firebase
-// theui should have text field and send button
-// the ui should have a list of messages
-
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
@@ -11,7 +7,6 @@ import { SafeAreaView, withSafeAreaInsets } from 'react-native-safe-area-context
 const ChatsIn = ({ route, navigation }) => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    console.log(messages);
     const user = auth().currentUser;
     useEffect(() => {
         let combinedid = user.email + route.params.user.email;
@@ -31,6 +26,7 @@ const ChatsIn = ({ route, navigation }) => {
         let combinedid2 = route.params.user.email + user.email;
         let id = combinedid > combinedid2 ? combinedid : combinedid2;
         firestore().collection('messages').doc(id).collection('messages').add({
+            username: user.displayName,
             useremail: user.email,
             text: message,
             createdAt: firestore.FieldValue.serverTimestamp(),
@@ -45,9 +41,8 @@ const ChatsIn = ({ route, navigation }) => {
                     renderItem={({ item }) => {
                         return (
                             <View style={styles.chat}>
-                                <Image source={{ uri: item?.userphoto }} style={styles.image} />
                                 <View style={styles.chatInfo}>
-                                    {/* <Text style={styles.name}>{item.name}</Text> */}
+                                    <Text style={styles.name}>{item.username}</Text>
                                     <Text style={styles.message}>{item.text}</Text>
                                 </View>
                             </View>
@@ -63,7 +58,11 @@ const ChatsIn = ({ route, navigation }) => {
                         placeholder="Type message"
                         placeholderTextColor="grey"
                     />
-                    <Button title="Send" onPress={sendMessage} />
+                    <View style={{
+                        color: 'white',
+                    }}>
+                        <Button title="Send" onPress={sendMessage} />
+                    </View>
                 </View>
             </SafeAreaView>
         </View>

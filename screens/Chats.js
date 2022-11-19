@@ -1,4 +1,3 @@
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -29,7 +28,6 @@ const Chats = ({ navigation }) => {
                                     <Image source={{ uri: item.photo }} style={styles.image} />
                                     <View style={styles.chatInfo}>
                                         <Text style={styles.name}>{item.name}</Text>
-                                        <Text style={styles.message}>Hello</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>
