@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         marginBottom: 20
     },
     imageText: {
-        color: '#fff',
+        color: 'grey',
         fontSize: 20
     },
     detailsContainer: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     detailsText: {
         fontSize: 20,
         marginBottom: 10,
-        color: '#fff',
+        color: 'grey',
     },
     buttonContainer: {
         width: '100%',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
 
     },
     editButton: {
-        width: 80,
+        width: 90,
         height: 50,
         backgroundColor: 'white',
         alignItems: 'center',
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     logoutButton: {
-        width: 80,
+        width: 90,
         height: 50,
         backgroundColor: 'white',
         alignItems: 'center',
@@ -141,6 +141,7 @@ const styles = StyleSheet.create({
         color: 'black',
         fontSize: 20
     }
+    
 })
 
 export default Profile;
