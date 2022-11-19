@@ -7,6 +7,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {TouchableOpacity} from 'react-native';
 
 const Posts = () => {
     const [state, setState] = useState({
@@ -106,8 +107,11 @@ const Posts = () => {
                     onChangeText={onChangeDescription}
                     style={{ width: '95%', height: 150, borderColor: 'gray', borderWidth: 2, borderRadius: 10, marginTop: 10, marginBottom: 20, color: "white", fontSize: 18, paddingBottom: 0, paddingLeft: 10 }}
                 />
-                <Button color="#474747" status='success' onPress={onSubmit} title="Upload">
-                </Button>
+                {/* <Button color="#474747" status='success' onPress={onSubmit} title="Upload">
+                </Button> */}
+                <TouchableOpacity style={styles.postButton} onPress={onSubmit}>
+                            <Text style={styles.buttonText}>Post</Text>
+                </TouchableOpacity>
             </View>
         </View>
     )
@@ -126,5 +130,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         paddingTop: 100,
         paddingBottom: 50,
+    },
+    postButton: {
+        width: 100,
+        height: 50,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10
+    },
+    buttonText: {
+        color: 'black',
+        fontSize: 20
     }
 });

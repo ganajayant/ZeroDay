@@ -4,11 +4,40 @@ import Home from "../screens/Home";
 import Profile from "../screens/Profile";
 import Chats from "../screens/Chats";
 import Posts from "../screens/Posts";
-
+import {createStackNavigator} from '@react-navigation/stack';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/FontAwesome';
+const Stack = createStackNavigator();
+
+import ViewEdit from "../screens/ViewEdit";
 
 const Tab = createBottomTabNavigator();
+
+const ProfileStack = () => (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={ViewEdit}
+        options={{
+          headerTitle: 'Edit Profile',
+          headerBackTitleVisible: false,
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: '#fff',
+            shadowColor: '#fff',
+            elevation: 0,
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
 
 const TabNavigator = () => {
     return (
@@ -34,7 +63,7 @@ const TabNavigator = () => {
                 {tabBarIcon: ({color, size}) => (
                     <Ionicons name="add-circle" color={color} size={size} />)}
             }/>
-            <Tab.Screen name="Profile" component={Profile} options={
+            <Tab.Screen name="Profile" component={ProfileStack} options={
                 {tabBarIcon: ({color, size}) => (
                     <Icons name="user" color={color} size={size} />)}
             } />
