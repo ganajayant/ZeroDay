@@ -15,7 +15,11 @@ const TabNavigator = () => {
         <Tab.Navigator screenOptions={
             {
                 headerShown: false,
-                tabBarShowLabel: false
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                backgroundColor: 'black'},
+                tabBarInactiveTintColor: 'white',
+                tabBarActiveTintColor: '#3ad6ab',
             }
         }>
             <Tab.Screen name="Home" component={Home} options={
