@@ -1,10 +1,11 @@
+import firestore from '@react-native-firebase/firestore';
 import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
 import Card from './Cards';
 import Search from './Search';
-import firestore from '@react-native-firebase/firestore';
 
 export default function Home() {
     const [posts, setPosts] = React.useState([]);

@@ -1,13 +1,11 @@
-import storage from '@react-native-firebase/storage';
-import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/storage';
 import React, { useState } from 'react';
-import { Button, Image, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { launchImageLibrary } from 'react-native-image-picker';
-import { StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {TouchableOpacity} from 'react-native';
 
 const Posts = () => {
     const [state, setState] = useState({
@@ -110,7 +108,7 @@ const Posts = () => {
                 {/* <Button color="#474747" status='success' onPress={onSubmit} title="Upload">
                 </Button> */}
                 <TouchableOpacity style={styles.postButton} onPress={onSubmit}>
-                            <Text style={styles.buttonText}>Post</Text>
+                    <Text style={styles.buttonText}>Post</Text>
                 </TouchableOpacity>
             </View>
         </View>

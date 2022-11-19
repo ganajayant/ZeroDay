@@ -1,10 +1,6 @@
-// Make a react-native card component that can be used in the app inspired from instagram but in blavk
-//
-// Path: screens\Cards.js
-
-import React, { useEffect } from 'react';
 import firestore from '@react-native-firebase/firestore';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 

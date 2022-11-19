@@ -1,11 +1,9 @@
 // Write a simle search screen
 
-import React, { Component, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useState } from 'react';
-import { color } from 'react-native-reanimated';
 import firestore from '@react-native-firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Using functional components
 

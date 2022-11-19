@@ -1,10 +1,9 @@
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import auth from '@react-native-firebase/auth';
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import firestore from '@react-native-firebase/firestore';
 
 // Making a editable form using functional components and hooks with useState and useEffect 
 // Feature to update the user profile and actual values should be shown as place holders

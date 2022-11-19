@@ -1,16 +1,15 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import Home from "../screens/Home";
-import Profile from "../screens/Profile";
-import Chats from "../screens/Chats";
-import Posts from "../screens/Posts";
 import { createStackNavigator } from '@react-navigation/stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Icons from 'react-native-vector-icons/FontAwesome';
-const Stack = createStackNavigator();
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import Chats from "../screens/Chats";
+import Home from "../screens/Home";
+import Posts from "../screens/Posts";
+import Profile from "../screens/Profile";
 import ViewEdit from "../screens/ViewEdit";
 
+const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const ProfileStack = () => (
