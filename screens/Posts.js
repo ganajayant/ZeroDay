@@ -26,10 +26,10 @@ const Posts = () => {
             const post = {
                 photo: state.image,
                 title: state.title,
-                description: state.description
+                description: state.description,
+                timestamp: firestore.FieldValue.serverTimestamp()
             }
-            const reference = storage().ref('posts/' + post.photo.fileName);
-            console.log(auth().currentUser);
+            const reference = storage().ref('posts/' + new Date().toISOString());
             reference.putFile(post.photo.uri).then(() => {
                 reference.getDownloadURL().then((url) => {
                     firestore().collection('posts').add({
@@ -37,6 +37,7 @@ const Posts = () => {
                         description: post.description,
                         photo: url,
                         useremail: auth().currentUser.email,
+                        timestamp: post.timestamp
                     }).then(() => {
                         console.log('Post added!');
                     }).catch((e) => {
@@ -77,33 +78,33 @@ const Posts = () => {
 
     return (
         <View style={styles.container}>
-            <View style={{alignItems: 'center'}}>
+            <View style={{ alignItems: 'center' }}>
                 {state.image ? (
                     <Image
                         source={state.image}
                         style={{ width: '100%', height: 400 }}
                     />
                 ) : (
-                    <Ionicons name="add-circle" size={150} color="white" style={styles.icon}  onPress={selectImage}/>
+                    <Ionicons name="add-circle" size={150} color="white" style={styles.icon} onPress={selectImage} />
                 )}
             </View>
             {/* <Input placeholder='Title' value={state.title} onChangeText={onChangeTitle} /> */}
-            <View style={{ marginTop: 0, alignItems: 'center' , backgroundColor:"black"}}>
+            <View style={{ marginTop: 0, alignItems: 'center', backgroundColor: "black" }}>
 
                 <Text category='h4'>Post Details</Text>
                 <TextInput
                     placeholder='Title'
-                    placeholderTextColor="white" 
+                    placeholderTextColor="white"
                     value={state.title}
                     onChangeText={onChangeTitle}
-                    style={{ width: '95%', height: 35, borderColor: 'gray', borderWidth: 2 , borderRadius: 10, color:"white", fontSize: 20, paddingTop:0, paddingBottom:0, paddingLeft:10}}
+                    style={{ width: '95%', height: 35, borderColor: 'gray', borderWidth: 2, borderRadius: 10, color: "white", fontSize: 20, paddingTop: 0, paddingBottom: 0, paddingLeft: 10 }}
                 />
                 <TextInput
                     placeholder='Description'
-                    placeholderTextColor="white" 
+                    placeholderTextColor="white"
                     value={state.description}
                     onChangeText={onChangeDescription}
-                    style={{ width: '95%', height: 150, borderColor: 'gray', borderWidth: 2, borderRadius: 10, marginTop: 10, marginBottom: 20 , color:"white", fontSize: 18, paddingBottom:0, paddingLeft:10}}
+                    style={{ width: '95%', height: 150, borderColor: 'gray', borderWidth: 2, borderRadius: 10, marginTop: 10, marginBottom: 20, color: "white", fontSize: 18, paddingBottom: 0, paddingLeft: 10 }}
                 />
                 <Button color="#474747" status='success' onPress={onSubmit} title="Upload">
                 </Button>

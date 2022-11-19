@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'r
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useState } from 'react';
 import { color } from 'react-native-reanimated';
+import firestore from '@react-native-firebase/firestore';
 
 // Using functional components
 
@@ -15,9 +16,13 @@ const Search = () => {
     })
     const onChangeSearch = search => {
         setState({ ...state, search })
+        firestore().collection('users').where('name', '>=', state.search.trim()).get().then((querySnapshot) => {
+            const users = [...querySnapshot.docs.map(doc => doc.data())];
+            setState({ ...state, data: users })
+        })
     }
     const onSearch = () => {
-        // Search logic
+        console.log(state.search);
     }
     return (
         <View style={styles.container}>
@@ -29,15 +34,17 @@ const Search = () => {
                     value={state.search}
                     onChangeText={onChangeSearch}
                 />
-                <TouchableOpacity style={styles.searchButton} onPress={onSearch}>
+                <TouchableOpacity style={styles.searchButton} onPress={onSearch} >
                     <Ionicons name="search" size={24} color="white" />
                 </TouchableOpacity>
             </View>
+
+
             <FlatList
                 data={state.data}
                 renderItem={({ item }) => (
-                    <TouchableOpacity style={styles.itemContainer}>
-                        <Text style={styles.itemText}>{item.title}</Text>
+                    <TouchableOpacity style={styles.itemContainer} key={item.photo}>
+                        <Text style={styles.itemText}>{item.name}</Text>
                     </TouchableOpacity>
                 )}
                 keyExtractor={item => item.id}
