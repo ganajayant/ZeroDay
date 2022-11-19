@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -28,6 +28,19 @@ const ViewEdit = ({navigation}) => {
         job: '',
         bio: ''
     })
+    useEffect(() => {
+        const user = auth().currentUser;
+        firestore().collection('users').doc(user.uid).get().then((doc) => {
+            setState({
+                name: doc.data().name,
+                institute: doc.data().institute,
+                department: doc.data().department,
+                year: doc.data().year,
+                job: doc.data().job,
+                bio: doc.data().bio
+            })
+        })
+    }, []);
     const onChangeName = name => {
         setState({ ...state, name })
     }

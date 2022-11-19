@@ -47,7 +47,15 @@ const Card = (props) => {
     return (
         <View style={styles.card}>
             <View style={styles.cardHeader}>
-                <Image source={user?.photo} style={styles.profileImage} />
+                <Image source={{ uri: user?.photo }} style={
+                    {
+                        width: 50,
+                        height: 50,
+                        borderRadius: 25,
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }
+                } />
                 <View>
                     <Text style={styles.name}>{user?.name}</Text>
                     <Text style={styles.time}> {getTime(props.post.timestamp)} ago</Text>
