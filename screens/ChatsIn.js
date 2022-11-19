@@ -14,16 +14,23 @@ const ChatsIn = ({ route, navigation }) => {
     console.log(messages);
     const user = auth().currentUser;
     useEffect(() => {
-        firestore().collection('chats').doc(route.params.user.email).collection('messages').orderBy('createdAt', 'desc').onSnapshot((querySnapshot) => {
+        let combinedid = user.email + route.params.user.email;
+        let combinedid2 = route.params.user.email + user.email;
+        let id = combinedid > combinedid2 ? combinedid : combinedid2;
+        firestore().collection('messages').doc(id).collection('messages').orderBy('createdAt').onSnapshot((querySnapshot) => {
             const messages = [];
             querySnapshot.forEach((doc) => {
                 messages.push(doc.data());
             });
             setMessages(messages);
+            console.log(messages);
         })
     }, [])
     const sendMessage = () => {
-        firestore().collection('chats').doc(route.params.user.email).collection('messages').add({
+        let combinedid = user.email + route.params.user.email;
+        let combinedid2 = route.params.user.email + user.email;
+        let id = combinedid > combinedid2 ? combinedid : combinedid2;
+        firestore().collection('messages').doc(id).collection('messages').add({
             useremail: user.email,
             text: message,
             createdAt: firestore.FieldValue.serverTimestamp(),
@@ -38,7 +45,6 @@ const ChatsIn = ({ route, navigation }) => {
                     renderItem={({ item }) => {
                         return (
                             <View style={styles.chat}>
-                                {console.log('text', item)}
                                 <Image source={{ uri: item?.userphoto }} style={styles.image} />
                                 <View style={styles.chatInfo}>
                                     {/* <Text style={styles.name}>{item.name}</Text> */}
@@ -75,6 +81,7 @@ const styles = StyleSheet.create({
     },
     chatInfo: {
         marginLeft: 15,
+        color: "white"
     },
     name: {
         fontSize: 16,
@@ -83,7 +90,7 @@ const styles = StyleSheet.create({
     },
     message: {
         fontSize: 16,
-        color: 'black'
+        color: 'white'
     },
     image: {
         height: 50,
@@ -95,13 +102,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 10,
         margin: 10,
-        backgroundColor: 'black',
+        backgroundColor: 'White',
         borderRadius: 25
     },
     input: {
         flex: 1,
         height: 40,
-        marginLeft: 20
+        marginLeft: 20,
+        color: "white"
     },
     send: {
         marginRight: 15,
