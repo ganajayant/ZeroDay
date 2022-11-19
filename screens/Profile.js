@@ -3,6 +3,7 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import { color } from 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import Card from './Cards';
@@ -38,15 +39,15 @@ const Profile = ({ navigation }) => {
     }, [])
     console.log('posts', posts);
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor:"black" }}>
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.imageContainer}>
                         <Image source={{ uri: state.photo }} style={
                             {
-                                width: 100,
-                                height: 100,
-                                borderRadius: 50,
+                                width: 200,
+                                height: 200,
+                                borderRadius: 100,
                                 borderWidth: 3,
                                 borderColor: '#fff'
                             }
@@ -54,10 +55,10 @@ const Profile = ({ navigation }) => {
                         {/* <Text style={styles.imageText}>User Image</Text> */}
                     </View>
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.detailsText}>Name: {state?.name}</Text>
-                        <Text style={styles.detailsText}>Email: {state?.email}</Text>
+                        <Text style={styles.detailsText}>Name:  {state?.name}</Text>
+                        <Text style={styles.detailsText}>Email:  {state?.email}</Text>
                         <Text style={styles.detailsText}>Institute: {state?.institute}</Text>
-                        <Text style={styles.detailsText}>Department:{state?.department} </Text>
+                        <Text style={styles.detailsText}>Department:  {state?.department} </Text>
                         <Text style={styles.detailsText}>Year of passing: {state?.year}</Text>
                         <Text style={styles.detailsText}>Current Job: {state?.job}</Text>
                         <Text style={styles.detailsText}>Bio: {state?.bio}</Text>
@@ -102,36 +103,42 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        marginBottom: 20
+        marginBottom: 20,
+        backgroundColor: '#202020',
+        borderRadius: 10,
+        padding: 10
     },
     detailsText: {
         fontSize: 20,
-        marginBottom: 10
+        marginBottom: 10,
+        color: '#fff',
     },
     buttonContainer: {
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingBottom: 10
+
     },
     editButton: {
-        width: 100,
+        width: 80,
         height: 50,
-        backgroundColor: '#000',
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10
     },
     logoutButton: {
-        width: 100,
+        width: 80,
         height: 50,
-        backgroundColor: '#000',
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10
     },
     buttonText: {
-        color: '#fff',
+        color: 'black',
         fontSize: 20
     }
 })

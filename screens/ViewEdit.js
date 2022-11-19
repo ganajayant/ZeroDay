@@ -80,13 +80,13 @@ const ViewEdit = ({navigation}) => {
         navigation.navigate('Profile')
     }
     return (
-        <SafeAreaView style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 , backgroundColor:'black'}}>
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 30 }}>Profile</Text>
+                    <Text style={{ fontSize: 30  ,color:"white" }}>Edit Profile</Text>
                 </View>
                 <View style={{ flex: 1, padding: 20 }}>
-                    <Text style={{ fontSize: 20 }}>Name</Text>
+                    <Text style={{ fontSize: 20 , color:"white"}}>Name</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Name"
@@ -94,7 +94,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.name}
                         onChangeText={onChangeName}
                     />
-                    <Text style={{ fontSize: 20 }}>Institute</Text>
+                    <Text style={{ fontSize: 20 ,color:"white" }}>Institute</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Institute"
@@ -102,7 +102,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.institute}
                         onChangeText={onChangeInstitute}
                     />
-                    <Text style={{ fontSize: 20 }}>Department</Text>
+                    <Text style={{ fontSize: 20 ,color:"white"  }}>Department</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Department"
@@ -110,7 +110,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.department}
                         onChangeText={onChangeDepartment}
                     />
-                    <Text style={{ fontSize: 20 }}>Year of passing</Text>
+                    <Text style={{ fontSize: 20 ,color:"white"  }}>Year of passing</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Year of passing"
@@ -118,7 +118,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.year}
                         onChangeText={onChangeYear}
                     />
-                    <Text style={{ fontSize: 20 }}>Current job and company</Text>
+                    <Text style={{ fontSize: 20 ,color:"white"  }}>Current job and company</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Current job and company"
@@ -126,7 +126,7 @@ const ViewEdit = ({navigation}) => {
                         value={state.job}
                         onChangeText={onChangeJob}
                     />
-                    <Text style={{ fontSize: 20 }}>Bio</Text>
+                    <Text style={{ fontSize: 20 ,color:"white"  }}>Bio</Text>
                     <TextInput
                         style={styles.input}
                         placeholder="Bio"
@@ -136,10 +136,10 @@ const ViewEdit = ({navigation}) => {
                     />
                     <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
                     <TouchableOpacity style={styles.button} onPress={onSave}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>Save</Text>
+                        <Text style={{ color: 'black', fontSize: 20 }}>Save</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={onCancel}>
-                        <Text style={{ color: 'white', fontSize: 20 }}>Cancel</Text>
+                        <Text style={{ color: 'black', fontSize: 20 }}>Cancel</Text>
                     </TouchableOpacity>
                     </View>
                 </View>
@@ -155,14 +155,16 @@ const styles = StyleSheet.create({
         margin: 12,
         borderWidth: 1,
         padding: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        backgroundColor:"white"
     },
     button: {
         alignItems: "center",
-        backgroundColor: "#DDDDDD",
-        padding: 10,
+        backgroundColor: "white",
+        marginTop: 15,
+        padding: 5,
         borderRadius: 10,
-        width: 100,
+        width: 80,
     }
 })
 

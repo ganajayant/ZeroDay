@@ -17,21 +17,26 @@ const ProfileStack = () => (
     initialRouteName={Profile}
   >
     <Stack.Screen
+    
       name="Profile"
       component={Profile}
       options={{
+
         headerShown: false,
+        tabBarShowLabel: false,
       }}
     />
     <Stack.Screen
       name="EditProfile"
       component={ViewEdit}
       options={{
+        headerShown: false,
+        tabBarShowLabel: false,
         headerTitle: 'Edit Profile',
         headerBackTitleVisible: false,
         headerTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#fff',
+          backgroundColor: 'black',
           shadowColor: '#fff',
           elevation: 0,
         },
