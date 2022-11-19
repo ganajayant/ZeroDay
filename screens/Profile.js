@@ -1,9 +1,11 @@
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import auth from '@react-native-firebase/auth';
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import ViewEdit from './ViewEdit';
+
+import Card from './Cards';
 
 // This the the profile view page where the user can view his/her profile
 // The user can also edit his/her profile from this page by clicking a button to navigate to the edit page
@@ -15,23 +17,50 @@ const onLogout = () => {
     auth().signOut();
 }
 
-
 const Profile = ({ navigation }) => {
+    const [state, setState] = useState({})
+    const [posts, setPosts] = useState([]);
+    console.log('profile', auth().currentUser.email);
+    useEffect(() => {
+        firestore().collection('users').where('email', '==', auth().currentUser.email).get().then((querySnapshot) => {
+            querySnapshot.forEach((documentSnapshot) => {
+                console.log(documentSnapshot.data());
+                setState(documentSnapshot.data())
+            });
+        });
+        firestore().collection('posts').where('useremail', '==', auth().currentUser.email).get().then((querySnapshot) => {
+            const posts = [];
+            querySnapshot.forEach((doc) => {
+                posts.push(doc.data());
+            });
+            setPosts(posts);
+        })
+    }, [])
+    console.log('posts', posts);
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.imageContainer}>
-                        <Text style={styles.imageText}>User Image</Text>
+                        <Image source={{ uri: state.photo }} style={
+                            {
+                                width: 100,
+                                height: 100,
+                                borderRadius: 50,
+                                borderWidth: 3,
+                                borderColor: '#fff'
+                            }
+                        } />
+                        {/* <Text style={styles.imageText}>User Image</Text> */}
                     </View>
                     <View style={styles.detailsContainer}>
-                        <Text style={styles.detailsText}>Name: </Text>
-                        <Text style={styles.detailsText}>Email: </Text>
-                        <Text style={styles.detailsText}>Institute: </Text>
-                        <Text style={styles.detailsText}>Department: </Text>
-                        <Text style={styles.detailsText}>Year of passing: </Text>
-                        <Text style={styles.detailsText}>Current Job: </Text>
-                        <Text style={styles.detailsText}>Bio: </Text>
+                        <Text style={styles.detailsText}>Name: {state?.name}</Text>
+                        <Text style={styles.detailsText}>Email: {state?.email}</Text>
+                        <Text style={styles.detailsText}>Institute: {state?.institute}</Text>
+                        <Text style={styles.detailsText}>Department:{state?.department} </Text>
+                        <Text style={styles.detailsText}>Year of passing: {state?.year}</Text>
+                        <Text style={styles.detailsText}>Current Job: {state?.job}</Text>
+                        <Text style={styles.detailsText}>Bio: {state?.bio}</Text>
                     </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.editButton} onPress={() => navigation.navigate('EditProfile')}>
@@ -40,6 +69,14 @@ const Profile = ({ navigation }) => {
                         <TouchableOpacity style={styles.logoutButton} onPress={onLogout}>
                             <Text style={styles.buttonText}>Logout</Text>
                         </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: "row", flexWrap: "wrap", justifyContent: "space-around" }}>
+                        {posts.map((post, index) => {
+                            console.log(post);
+                            return (
+                                <Card key={index} post={post} />
+                            )
+                        })}
                     </View>
                 </View>
             </ScrollView>

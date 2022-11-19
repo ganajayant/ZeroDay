@@ -1,6 +1,6 @@
 // Write a simle search screen
 
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useState } from 'react';
@@ -14,12 +14,23 @@ const Search = () => {
         search: '',
         data: []
     })
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        firestore().collection('users').get()
+            .then(querySnapshot => {
+                const users = [];
+                querySnapshot.forEach(documentSnapshot => {
+                    users.push({
+                        ...documentSnapshot.data(),
+                        key: documentSnapshot.id
+                    })
+                })
+                setState({ ...state, data: users })
+            })
+    }, [])
     const onChangeSearch = search => {
         setState({ ...state, search })
-        firestore().collection('users').where('name', '>=', state.search.trim()).get().then((querySnapshot) => {
-            const users = [...querySnapshot.docs.map(doc => doc.data())];
-            setState({ ...state, data: users })
-        })
+        setData(state.data.filter(item => item.name.toLowerCase().includes(search.toLowerCase())))
     }
     const onSearch = () => {
         console.log(state.search);
@@ -41,7 +52,7 @@ const Search = () => {
 
 
             <FlatList
-                data={state.data}
+                data={data}
                 renderItem={({ item }) => (
                     <TouchableOpacity style={styles.itemContainer} key={item.photo}>
                         <Text style={styles.itemText}>{item.name}</Text>

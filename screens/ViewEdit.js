@@ -48,9 +48,6 @@ const ViewEdit = ({navigation}) => {
         setState({ ...state, bio })
     }
 
-    // const onLogout = () => {
-    //     auth().signOut();
-    // }
     const onSave = () => {
         console.log('user',auth().currentUser.uid);
         firestore().collection('users').doc(auth().currentUser.uid).update({
@@ -63,6 +60,7 @@ const ViewEdit = ({navigation}) => {
         })
         .then(() => {
             console.log('User updated!');
+            navigation.navigate('Profile');
         }
         )
     }
